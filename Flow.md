@@ -67,3 +67,86 @@
 │  │                         AUTH GATEWAY                                │    │
 │  │  Login → JWT Token → Check Role → Redirect to Dashboard             │    │
 │  └────────────────
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                    1. DATA SOURCES & GENERATION                              │
+│  [متجر إلكتروني] أو [بيانات وهمية (Faker)]                                   │
+└─────────────────────────────┬───────────────────────────────────────────────┘
+                              │
+                              ▼
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                    2. MONGODB (Operational Database)                          │
+│  users │ orders │ products │ reviews │ campaigns                             │
+└─────────────────────────────┬───────────────────────────────────────────────┘
+                              │
+                              ▼
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                    3. ETL PIPELINE (Python + pandas)                          │
+│  Extract → Transform → Load إلى PostgreSQL                                   │
+└─────────────────────────────┬───────────────────────────────────────────────┘
+                              │
+                              ▼
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                    4. POSTGRESQL (Data Warehouse)                             │
+│  customers │ orders │ order_items │ products │ campaigns │ reviews │ metrics │
+└─────────────────────────────┬───────────────────────────────────────────────┘
+                              │
+        ┌─────────────────────┼─────────────────────┐
+        │                     │                     │
+        ▼                     ▼                     ▼
+┌──────────────┐    ┌──────────────────┐    ┌──────────────┐
+│ 5. DATA      │    │ 6. MACHINE       │    │ 7. POWER BI  │
+│    ANALYSIS  │    │    LEARNING      │    │  (Main BI)   │
+│              │    │                  │    │              │
+│ • EDA        │    │ • Revenue        │    │ • CEO Dash   │
+│ • Trends     │    │   Forecast       │    │ • PM Dash    │
+│ • Profit     │    │ • Product        │    │ • Marketer   │
+│   Analysis   │    │   Prediction     │    │   Dash       │
+│ • Customer   │    │ • Segmentation   │    │ • Direct     │
+│   Cohorts    │    │                  │    │   connection │
+│ • KPIs       │    │ • Models saved   │    │   to DWH     │
+│   Reports    │    │   as .pkl        │    │              │
+│              │    │                  │    │              │
+│ (Jupyter +   │    │ (Python +        │    │ (Power BI    │
+│  pandas +    │    │  scikit-learn +  │    │  Desktop/    │
+│  matplotlib) │    │  Prophet)        │    │  Service)    │
+└──────────────┘    └────────┬─────────┘    └──────┬───────┘
+                             │                     │
+                             └─────────┬───────────┘
+                                       │
+                                       ▼
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                    8. WEB PLATFORM (Nextjs + FastAPI)                          │
+│                                                                             │
+│  ┌─────────────┐  ┌─────────────┐  ┌─────────────┐  ┌─────────────────┐   │
+│  │   Auth      │  │    CEO      │  │   Product   │  │    Marketer     │   │
+│  │  (JWT)      │  │  Dashboard  │  │   Manager   │  │   Dashboard     │   │
+│  │             │  │             │  │  Dashboard  │  │                 │   │
+│  │ 3 Roles     │  │ • Financial │  │             │  │ • Create        │   │
+│  │             │  │ • Forecast  │  │ • Trends    │  │   Campaigns     │   │
+│  │             │  │   (ML API)  │  │ • Predict   │  │ • ML Predictions│   │
+│  └─────────────┘  └─────────────┘  └─────────────┘  └─────────────────┘   │
+│                                                                             │
+│  ⚡ الفرق عن Power BI: المنصة بتقدم تفاعل (Campaign Creation) + ML Real-time│
+└─────────────────────────────────────────────────────────────────────────────┘

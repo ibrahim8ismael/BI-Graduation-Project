@@ -7,6 +7,12 @@ import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Eye, EyeOff } from "lucide-react";
 
+type LoginPageProps = {
+	action: (formData: FormData) => void | Promise<void>;
+	pending: boolean;
+	error?: string;
+};
+
 interface PupilProps {
   size?: number;
   maxDistance?: number;
@@ -217,12 +223,10 @@ function useRandomBlink() {
   return isBlinking;
 }
 
-function LoginPage() {
+function LoginPage({ action, pending, error }: LoginPageProps) {
   const [showPassword, setShowPassword] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
   const [isLookingAtEachOther, setIsLookingAtEachOther] = useState(false);
   const [isPeekingRaw, setIsPeekingRaw] = useState(false);
 
@@ -276,22 +280,6 @@ function LoginPage() {
 
   const stopTyping = () => {
     setIsLookingAtEachOther(false);
-  };
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setError("");
-    setIsLoading(true);
-
-    await new Promise((resolve) => setTimeout(resolve, 300));
-
-    if (email === "erik@gmail.com" && password === "1234") {
-      alert("Login successful! Welcome, Erik!");
-    } else {
-      setError("Invalid email or password. Please try again.");
-    }
-
-    setIsLoading(false);
   };
 
   const purpleSkew = passwordVisible
@@ -571,13 +559,14 @@ function LoginPage() {
             </p>
           </div>
 
-          <form onSubmit={handleSubmit} className="space-y-5">
+          <form action={action} className="space-y-5">
             <div className="space-y-2">
               <Label htmlFor="email" className="text-sm font-medium">
                 Email
               </Label>
               <Input
                 id="email"
+                name="email"
                 type="email"
                 placeholder="anna@gmail.com"
                 value={email}
@@ -597,6 +586,7 @@ function LoginPage() {
               <div className="relative">
                 <Input
                   id="password"
+                  name="password"
                   type={showPassword ? "text" : "password"}
                   placeholder="••••••••"
                   value={password}
@@ -647,9 +637,9 @@ function LoginPage() {
               type="submit"
               className="w-full h-12 text-base font-medium"
               size="lg"
-              disabled={isLoading}
+              disabled={pending}
             >
-              {isLoading ? "Signing in..." : "Log in"}
+              {pending ? "Signing in..." : "Log in"}
             </Button>
           </form>
         </div>

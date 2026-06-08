@@ -9,7 +9,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Flowtic",
+  title: "Runner",
   description: "GTM data platform",
 };
 

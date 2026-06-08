@@ -30,7 +30,7 @@ export function AppSidebar({ role }: { role: Role }) {
 				<SidebarMenuButton asChild>
 					<a href="/dashboard">
 						<LogoIcon />
-						<span className="font-medium">Flowtic</span>
+						<span className="font-medium">Runner</span>
 					</a>
 				</SidebarMenuButton>
 			</SidebarHeader>

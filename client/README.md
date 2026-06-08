@@ -1,4 +1,4 @@
-# Flowtic — Frontend
+# Runner — Frontend
 
 Next.js 16 dashboard platform for BI e-commerce analytics. Role-based views for CEO, Product Manager, and Marketer.
 

@@ -8,12 +8,14 @@ import {
 	SidebarFooter,
 	SidebarGroup,
 	SidebarHeader,
+	SidebarMenu,
 	SidebarMenuButton,
 	SidebarMenuItem,
 } from "@/components/ui/sidebar";
 import { NavGroup } from "@/components/nav-group";
 import { getNavGroups } from "@/components/app-shared";
 import { LatestChange } from "@/components/latest-change";
+import { ThemeToggle } from "@/components/theme-toggle";
 import { PlusIcon, SearchIcon } from "lucide-react";
 import type { Role } from "@/lib/auth/roles";
 import { usePathname } from "next/navigation";
@@ -62,6 +64,11 @@ export function AppSidebar({ role }: { role: Role }) {
 				))}
 			</SidebarContent>
 			<SidebarFooter>
+				<SidebarMenu className="gap-0">
+					<SidebarMenuItem>
+						<ThemeToggle />
+					</SidebarMenuItem>
+				</SidebarMenu>
 				<LatestChange />
 			</SidebarFooter>
 		</Sidebar>

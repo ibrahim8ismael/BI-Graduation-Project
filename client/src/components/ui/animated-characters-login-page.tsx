@@ -628,7 +628,7 @@ function LoginPage({ action, pending, error }: LoginPageProps) {
             </div>
 
             {error && (
-              <div className="p-3 text-sm text-red-400 bg-red-950/20 border border-red-900/30 rounded-lg">
+              <div className="p-3 text-sm text-destructive bg-destructive/10 border border-destructive/20 rounded-lg">
                 {error}
               </div>
             )}

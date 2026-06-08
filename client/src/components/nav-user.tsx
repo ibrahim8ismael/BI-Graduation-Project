@@ -106,9 +106,9 @@ export function NavUser({ user, role }: { user: SessionUser; role: Role }) {
 							variant="destructive"
 							onSelect={(e) => {
 								e.preventDefault();
-								(
-									e.currentTarget.closest("form") as HTMLFormElement | null
-								)?.requestSubmit();
+								const el = e.currentTarget as Element | null;
+								const form = el?.closest("form") as HTMLFormElement | null;
+								form?.requestSubmit();
 							}}
 						>
 							<LogOutIcon />

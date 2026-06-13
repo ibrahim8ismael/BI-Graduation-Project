@@ -43,3 +43,12 @@ export function useSegmentCustomer() {
 export function useForecastRevenue() {
   return useMLAction(forecastRevenue);
 }
+
+export function useMLEndpoint(endpoint) {
+  const actionMap = {
+    "predict-category": predictCategory,
+    "segment-customer": segmentCustomer,
+    "forecast-revenue": forecastRevenue,
+  };
+  return useMLAction(actionMap[endpoint]);
+}

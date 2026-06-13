@@ -81,7 +81,7 @@
 | `predicted_category` | string | Predicted product category |
 | `confidence` | number | Confidence score (0-1) |
 
-**Frontend Route:** `/forcast/predict-category`
+**Frontend Route:** `/dashboard/product-manager/predict-category`
 
 ---
 
@@ -125,7 +125,7 @@
 | `segment_id` | integer | Numeric segment ID |
 | `characteristics` | array | List of segment characteristics |
 
-**Frontend Route:** `/forcast/segment-customer`
+**Frontend Route:** `/dashboard/product-manager/segment-customer`
 
 ---
 
@@ -138,10 +138,15 @@
 **Request Schema:**
 
 ```json
-{}
+{
+  "periods": 6
+}
 ```
 
-**Note:** This endpoint accepts empty body and uses internal historical data for forecasting.
+**Request Fields:**
+| Field | Type | Required | Description |
+|-------|------|----------|-------------|
+| `periods` | integer | Yes | Number of forecast periods to generate |
 
 **Response Example:**
 
@@ -183,7 +188,7 @@
 | `forecast[].ds` | string | Date (ISO format) |
 | `forecast[].yhat` | number | Predicted revenue value |
 
-**Frontend Route:** `/forcast/forecast-revenue`
+**Frontend Route:** `/dashboard/ceo/forecast-revenue`
 
 ---
 
@@ -275,14 +280,23 @@ client/
 │       │   │
 │       │   └── auth/ (existing)
 │       │
-│       └── forcast/
-│           ├── page.tsx (ML endpoints index)
-│           ├── predict-category/
-│           │   └── page.tsx
-│           ├── segment-customer/
-│           │   └── page.tsx
-│           └── forecast-revenue/
-│               └── page.tsx
+│       ├── (dashboard)/
+│       │   ├── dashboard/
+│       │   │   ├── ceo/
+│       │   │   │   ├── page.tsx (PowerBI)
+│       │   │   │   └── forecast-revenue/
+│       │   │   │       └── page.tsx
+│       │   │   ├── product-manager/
+│       │   │   │   ├── page.tsx (PowerBI)
+│       │   │   │   ├── predict-category/
+│       │   │   │   │   └── page.tsx
+│       │   │   │   └── segment-customer/
+│       │   │   │       └── page.tsx
+│       │   │   └── marketer/
+│       │   │       └── page.tsx (PowerBI)
+│       │   └── layout.tsx
+│       │
+│       └── forcast/ (redirects → dashboard)
 │
 └── ... (existing config files)
 ```
@@ -336,12 +350,12 @@ client/
    - Links to individual endpoint pages
 
 6. Created endpoint pages:
-   - `client/src/app/forcast/predict-category/page.tsx`
+   - `client/src/app/(dashboard)/dashboard/product-manager/predict-category/page.tsx`
      - Fields: price, qty_ordered, value, discount_amount, sku
-   - `client/src/app/forcast/segment-customer/page.tsx`
+   - `client/src/app/(dashboard)/dashboard/product-manager/segment-customer/page.tsx`
      - Fields: recency, frequency, monetary
-   - `client/src/app/forcast/forecast-revenue/page.tsx`
-     - No input fields (accepts empty body)
+   - `client/src/app/(dashboard)/dashboard/ceo/forecast-revenue/page.tsx`
+     - Fields: periods
 
 ### Phase 5: Server-Side Proxy
 
@@ -423,10 +437,9 @@ npm run dev
 
 **Navigate to pages:**
 
-- Main ML page: `http://localhost:3000/forcast`
-- Predict category: `http://localhost:3000/forcast/predict-category`
-- Segment customer: `http://localhost:3000/forcast/segment-customer`
-- Forecast revenue: `http://localhost:3000/forcast/forecast-revenue`
+- Forecast revenue (CEO): `http://localhost:3000/dashboard/ceo/forecast-revenue`
+- Predict category (PM): `http://localhost:3000/dashboard/product-manager/predict-category`
+- Segment customer (PM): `http://localhost:3000/dashboard/product-manager/segment-customer`
 
 **Test workflow:**
 
@@ -483,7 +496,7 @@ curl -X POST http://localhost:3000/api/proxy/segment/customer \
 ```bash
 curl -X POST http://localhost:3000/api/proxy/forecast/revenue \
   -H "Content-Type: application/json" \
-  -d '{}'
+  -d '{"periods": 6}'
 ```
 
 ### 3. Expected Results

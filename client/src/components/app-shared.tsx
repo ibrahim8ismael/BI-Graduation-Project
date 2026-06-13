@@ -1,15 +1,11 @@
 import type { ReactNode } from "react";
 import {
 	LayoutGridIcon,
-	BarChart3Icon,
-	ShoppingCartIcon,
-	FileTextIcon,
 	UsersIcon,
 	MegaphoneIcon,
-	TrendingUpIcon,
 	PackageIcon,
-	TargetIcon,
 	SparklesIcon,
+	LineChartIcon,
 } from "lucide-react";
 import type { Role } from "@/lib/auth/roles";
 
@@ -42,34 +38,9 @@ function ceoGroups(): SidebarNavGroup[] {
 					icon: <LayoutGridIcon />,
 				},
 				{
-					title: "Performance",
-					path: `${dashPath}/ceo#performance`,
-					icon: <TrendingUpIcon />,
-				},
-			],
-		},
-		{
-			label: "Campaigns",
-			items: [
-				{
-					title: "Campaign analytics",
-					path: `${dashPath}/ceo#campaigns`,
-					icon: <MegaphoneIcon />,
-				},
-			],
-		},
-		{
-			label: "Store",
-			items: [
-				{
-					title: "Orders",
-					path: `${dashPath}/ceo#orders`,
-					icon: <ShoppingCartIcon />,
-				},
-				{
-					title: "Products",
-					path: `${dashPath}/ceo#products`,
-					icon: <FileTextIcon />,
+					title: "Forecast revenue",
+					path: `${dashPath}/ceo/forecast-revenue`,
+					icon: <LineChartIcon />,
 				},
 			],
 		},
@@ -88,33 +59,13 @@ function productManagerGroups(): SidebarNavGroup[] {
 					icon: <PackageIcon />,
 				},
 				{
-					title: "Catalog",
-					path: `${dashPath}/product-manager#catalog`,
-					icon: <FileTextIcon />,
-				},
-			],
-		},
-		{
-			label: "Trends",
-			items: [
-				{
-					title: "Sales trends",
-					path: `${dashPath}/product-manager#trends`,
-					icon: <BarChart3Icon />,
-				},
-				{
-					title: "Forecasts",
-					path: `${dashPath}/product-manager#forecasts`,
+					title: "Predict category",
+					path: `${dashPath}/product-manager/predict-category`,
 					icon: <SparklesIcon />,
 				},
-			],
-		},
-		{
-			label: "Customers",
-			items: [
 				{
-					title: "Customer segments",
-					path: `${dashPath}/product-manager#segments`,
+					title: "Segment customer",
+					path: `${dashPath}/product-manager/segment-customer`,
 					icon: <UsersIcon />,
 				},
 			],
@@ -132,36 +83,6 @@ function marketerGroups(): SidebarNavGroup[] {
 					title: "All campaigns",
 					path: `${dashPath}/marketer`,
 					icon: <MegaphoneIcon />,
-				},
-				{
-					title: "New campaign",
-					path: `${dashPath}/marketer#new`,
-					icon: <TargetIcon />,
-				},
-			],
-		},
-		{
-			label: "Analytics",
-			items: [
-				{
-					title: "Campaign ROI",
-					path: `${dashPath}/marketer#roi`,
-					icon: <BarChart3Icon />,
-				},
-				{
-					title: "Customer insights",
-					path: `${dashPath}/marketer#customers`,
-					icon: <UsersIcon />,
-				},
-			],
-		},
-		{
-			label: "Performance",
-			items: [
-				{
-					title: "Channel mix",
-					path: `${dashPath}/marketer#channels`,
-					icon: <LayoutGridIcon />,
 				},
 			],
 		},

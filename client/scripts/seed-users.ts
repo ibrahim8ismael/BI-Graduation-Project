@@ -31,7 +31,7 @@ const users = [
 ];
 
 async function seed() {
-  const client = new MongoClient(uri);
+  const client = new MongoClient(uri!);
   try {
     await client.connect();
     const db = client.db();
